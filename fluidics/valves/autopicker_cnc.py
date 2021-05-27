@@ -48,7 +48,7 @@ class CNC(MockAutopicker):
         received = self.receive()
         return (received["x"], received["y"], received["z"])
 
-    def set(self, position = (0, 0, 0)):
+    def set(self, position = (0, 0, 0)):  # required
         current_position = self.coords()
         
         if position[0] is None:

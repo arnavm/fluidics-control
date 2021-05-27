@@ -3,10 +3,15 @@
 # A wrapper class for the Hamilton MVP valve chain and the Widgets that display
 # their status.  All interactions with the valve chain should go through this
 # class.
+#
+# 
 # ----------------------------------------------------------------------------------------
 # Jeff Moffitt
 # 12/28/13
 # jeffmoffitt@gmail.com
+# 
+# + updates from Nasa to add CNC and XYZ 
+# + updates from Alistair Boettiger
 # ----------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------
@@ -16,10 +21,10 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from valves.qtValveControl import QtValveControl
 from valves.hamilton import HamiltonMVP
-from valves.autopicker import MockAutopicker
-from valves.autopicker_cnc import CNC
-from valves.autopicker_xyz import XYZ
-
+from valves.autopicker import MockAutopicker  # used for simulated robot needle
+from valves.autopicker_cnc import CNC         # use orig ebay-CNC system for robot needle 
+from valves.autopicker_xyz import XYZ       # use da Vinici miniMaker from XYZprinting for robot needle
+from valves.autopicker_grbl import GRBL     # use GRBL CNC system for robot needle 
 
 # ----------------------------------------------------------------------------------------
 # ValveChain Class Definition
@@ -32,7 +37,8 @@ class ValveChain(QtWidgets.QWidget):
                  usb_cnc = 'XYZ',
                  valve_type = 'Hamilton',   
                  verbose = False
-                 ):   # note Hamilton is still the default
+                 ):   # note Hamilton is still the default, should change to 'none', but needs debugging
+                 #  in it's most general form, Kilroy should allow valves and robot needles
 
         # Initialize parent class
         QtWidgets.QWidget.__init__(self, parent)
@@ -69,6 +75,8 @@ class ValveChain(QtWidgets.QWidget):
         
         if usb_cnc == None:
             self.cnc = None
+        elif usb_cnc == 'GRBL':
+            self.cnc = GRBL(com_port = self.com_port)
         elif usb_cnc == 'XYZ':
             self.cnc = XYZ()
             print('CNC is XYZ minimover')
@@ -77,7 +85,7 @@ class ValveChain(QtWidgets.QWidget):
         elif usb_cnc == 'simulated':
             self.cnc = MockAutopicker()
         else:
-            cnc_vendor_product = usb_cnc.split(",")
+            cnc_vendor_product = usb_cnc.split(",")         # for backwards compatibility, worth updating this later 
             self.cnc = CNC(cnc_vendor_product[0], cnc_vendor_product[1])
                     
 

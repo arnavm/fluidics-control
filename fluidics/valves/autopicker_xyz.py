@@ -9,7 +9,7 @@ class XYZ(MockCNC):
         self.status = ("Initializing", False)
         self.mm = ctypes.CDLL("./libminimover.so")
         self.device = device
-        self.restore_config(config) #  
+        self.restore_config(config) #  plate configuration
         print('sending home')
         self.home()  # doesn't actually home 
 

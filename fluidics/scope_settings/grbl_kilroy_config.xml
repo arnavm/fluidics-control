@@ -3,7 +3,7 @@
   <!-- Valve parameters -->
   <valve_type type="string">Simulated</valve_type> 	<!-- Simulate a Hamilton valve (because I'm not sure the none option is debugged yet)-->  
   <num_simulated_valves type="int">1</num_simulated_valves><!-- Number of valves to simulate (Defaults to 0) -->
-  <valves_com_port type="string">COM2</valves_com_port>	<!-- COM port of serial connection to valves -->  
+  <valves_com_port type="string">COM4</valves_com_port>	<!-- COM port of serial connection to valves -->  
   <cnc type="string">GRBL</cnc><!-- Look for a CNC  (was XYZ) -->
 
   <!-- Pump parameters -->

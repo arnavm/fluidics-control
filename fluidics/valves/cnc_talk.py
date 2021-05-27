@@ -81,7 +81,7 @@ def max_distance_fix(positions, max_distance=1000):
 
 
 class MockCNC(object):
-    def __init__(self, plates=2, plate_shape=(12, 8)):
+    def __init__(self, plates=2, plate_shape=(12, 8),com_port=0):
         self.position = [0, 0, 0]
         self.plates = range(plates)
         self.plate_shape = plate_shape
