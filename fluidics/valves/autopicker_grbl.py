@@ -42,27 +42,23 @@ class GRBL(MockCNC):  # see cnc_talk.MockCNC
         self.zpos = 'Z0'
         self.position = (0,0,0)
         # may not need this
-        self.current_position = (0,0,0)      
+        # self.current_position = (0,0,0)      
 
     def moveXY(self,newx,newy):
-        if self.zpos != 'Z0':
-            self.needleUp()
-        if self.zpos == 'Z0':
-            command = 'G01 '+newx+' '+newy+' '+'Z0'+' '+self.feedspeed
-            self.sendCommand(command)
-            self.xpos = newx
-            self.ypos = newy
+        command = 'G01 '+newx+' '+newy+' '+self.feedspeed
+        self.sendCommand(command)
+        self.xpos = newx
+        self.ypos = newy
             # self.current_position = (self.current_position[0]+newx,slef.current_position[1]+newy,0)  # it looks like this has absolute position
 
     def needleUp(self):
+        # command = 'G01 '+self.xpos+' '+self.ypos+' '+'Z0'+' '+self.feedspeed
+        self.sendCommand('G01 Z0')
         self.zpos = 'Z0'
-        command = 'G01 '+self.xpos+' '+self.ypos+' '+'Z0'+' '+self.feedspeed
-        self.sendCommand(command)
 
     def needleDown(self):
+        self.sendCommand('G01 Z-37')
         self.zpos = 'Z-37'
-        command = 'G01 '+self.xpos+' '+self.ypos+' '+'Z-37'+' '+self.feedspeed
-        self.sendCommand(command)
 
     def wait(self,waitingtime=1):
         command = 'G04 P'+str(waitingtime)
@@ -83,11 +79,17 @@ class GRBL(MockCNC):  # see cnc_talk.MockCNC
 
     def set(self, position = (0, 0, 0)):
         if position[0] is not None:
-            self.needleUp()
+            print('setting position')
+            print(position)
             newX = 'X'+str(position[0])
             newY = 'Y'+str(position[1])
-            self.moveXY(newX,newY)
-            self.needleDown()
-            self.position = position
+            if self.xpos == newX and self.ypos == newY:  # we only stop down anyway
+                pass
+                # print('aready here')
+            else:
+                self.needleUp()  # if we remove this, it doesn't bounce
+                self.moveXY(newX,newY)
+                self.needleDown()
+                # self.position = position
         
-        return position #  self.coords()  # it looks like this keeps track of absolute position  
+        # return position #  self.coords()  # it looks like this keeps track of absolute position  

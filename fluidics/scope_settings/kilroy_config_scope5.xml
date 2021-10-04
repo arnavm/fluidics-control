@@ -3,8 +3,9 @@
   <!-- Valve parameters -->
   <valve_type type="string">Simulated</valve_type> 	<!-- Simulate a Hamilton valve (because I'm not sure the none option is debugged yet)-->  
   <num_simulated_valves type="int">1</num_simulated_valves><!-- Number of valves to simulate (Defaults to 0) -->
-  <valves_com_port type="string">COM5</valves_com_port>	<!-- COM port of serial connection to valves -->  
+  <valves_com_port type="string">COM7</valves_com_port>	<!-- COM port of serial connection to valves -->  
   <cnc type="string">GRBL</cnc><!-- Look for a CNC  (was XYZ) -->
+  <plate_layout type="string">./valves/XYZ_layout.json</plate_layout><!-- Look for a CNC  (was XYZ) -->
 
   <!-- Pump parameters -->
   <pump_class type="string">pumps.gilson_mp3</pump_class> <!--  pumps.gilson_mp3 Control class for pump -->

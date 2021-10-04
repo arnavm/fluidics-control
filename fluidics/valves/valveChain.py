@@ -4,6 +4,8 @@
 # their status.  All interactions with the valve chain should go through this
 # class.
 #
+#  Should probably be renamed to something more general, since the Autopickers arent 
+# really valve chains, but may optionally be used in conjunction with valve chains. 
 # 
 # ----------------------------------------------------------------------------------------
 # Jeff Moffitt
@@ -34,7 +36,8 @@ class ValveChain(QtWidgets.QWidget):
                  parent = None,
                  com_port = "COM2",
                  num_simulated_valves = 0,
-                 usb_cnc = 'XYZ',
+                 usb_cnc = 'GRBL',
+                 plate_layout = './valves/XYZ_layout.json',
                  valve_type = 'Hamilton',   
                  verbose = False
                  ):   # note Hamilton is still the default, should change to 'none', but needs debugging

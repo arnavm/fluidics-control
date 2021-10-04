@@ -73,6 +73,11 @@ class Kilroy(QtWidgets.QMainWindow):
         if "simulate_cnc" in parameters.parameters and parameters.get("simulate_cnc"):
             self.usb_cnc = "simulated"
             
+        if "plate_layout" in parameters.parameters:
+            self.plate_layout = parameters.get("plate_layout")
+        else:
+            self.plate_layout = './valves/XYZ_layout.json'
+            
         # Define additional internal attributes
         self.received_message = None
         
