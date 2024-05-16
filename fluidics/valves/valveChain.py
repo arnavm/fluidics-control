@@ -28,6 +28,13 @@ from valves.autopicker_cnc import CNC         # use orig ebay-CNC system for rob
 from valves.autopicker_xyz import XYZ       # use da Vinici miniMaker from XYZprinting for robot needle
 from valves.autopicker_grbl import GRBL     # use GRBL CNC system for robot needle 
 
+def debug_trace():
+    '''Set a tracepoint in the Python debugger that works with Qt'''
+    from PyQt5.QtCore import pyqtRemoveInputHook
+    from pdb import set_trace
+    pyqtRemoveInputHook()
+    set_trace()
+
 # ----------------------------------------------------------------------------------------
 # ValveChain Class Definition
 # ----------------------------------------------------------------------------------------
