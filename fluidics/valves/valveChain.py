@@ -44,6 +44,7 @@ class ValveChain(QtWidgets.QWidget):
                  com_port = "COM2",
                  num_simulated_valves = 0,
                  usb_cnc = 'GRBL',
+                 cnc_com_port = "COM5",
                  plate_layout = './valves/XYZ_layout.json',
                  valve_type = 'Hamilton',   
                  verbose = False
@@ -56,6 +57,7 @@ class ValveChain(QtWidgets.QWidget):
         # Define local attributes
         self.com_port = com_port
         self.usb_cnc = usb_cnc
+        self.cnc_com_port = cnc_com_port
         self.verbose = verbose
         self.poll_time = 2000
         print('usb cnc: ')
@@ -65,7 +67,7 @@ class ValveChain(QtWidgets.QWidget):
 
         # Create instance of Valve class
         print(valve_type)
-        if valve_type == 'Simulated' or self.com_port < 0 or num_simulated_valves > 0:
+        if valve_type == 'Simulated' or (isinstance(com_port, int) and com_port < 0) or num_simulated_valves > 0:
             print('simulating valves')
             self.valve_chain = HamiltonMVP(com_port = 0,
 				   num_simulated_valves = num_simulated_valves,
@@ -86,7 +88,7 @@ class ValveChain(QtWidgets.QWidget):
         if usb_cnc == None:
             self.cnc = None
         elif usb_cnc == 'GRBL':
-            self.cnc = GRBL(com_port = self.com_port)
+            self.cnc = GRBL(com_port = self.cnc_com_port)
         elif usb_cnc == 'XYZ':
             self.cnc = XYZ()
             print('CNC is XYZ minimover')
@@ -117,6 +119,7 @@ class ValveChain(QtWidgets.QWidget):
     # Change specified valve position
     # ------------------------------------------------------------------------------------
     def changeValvePosition(self, valve_ID, port_ID = None):
+        
         print("Valve", valve_ID, "and port", port_ID)
 
         if valve_ID >= 0 and valve_ID < self.num_valves:

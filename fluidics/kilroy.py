@@ -41,6 +41,7 @@ class Kilroy(QtWidgets.QMainWindow):
         # Parse parameters into internal attributes
         self.verbose = parameters.get("verbose")
         self.valve_com_port = parameters.get("valves_com_port", default=-1)
+        self.cnc_com_port = parameters.get("cnc_com_port", default=-1)
         self.tcp_port = parameters.get("tcp_port")
         self.pump_com_port = parameters.get("pump_com_port", default=-1)
         self.pump_ID = parameters.get("pump_ID", default="")
@@ -94,6 +95,7 @@ class Kilroy(QtWidgets.QMainWindow):
                                      num_simulated_valves = self.num_simulated_valves,
                                      valve_type=self.valve_type,
                                      usb_cnc = self.usb_cnc,
+                                     cnc_com_port = self.cnc_com_port,
                                      verbose = self.verbose)
                                      #                                      
 

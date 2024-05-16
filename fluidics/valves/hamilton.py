@@ -16,7 +16,12 @@ import sys
 import time
 
 from storm_control.fluidics.valves.valve import AbstractValve
-
+def debug_trace():
+    '''Set a tracepoint in the Python debugger that works with Qt'''
+    from PyQt5.QtCore import pyqtRemoveInputHook
+    from pdb import set_trace
+    pyqtRemoveInputHook()
+    set_trace()
 # ----------------------------------------------------------------------------------------
 # HamiltonMVP Class Definition
 # ----------------------------------------------------------------------------------------
@@ -34,7 +39,7 @@ class HamiltonMVP(AbstractValve):
         print("Initializing MVP on port", com_port)
 
         # Determine simulation mode
-        self.simulate = True #(self.num_simulated_valves > 0 or (isinstance(com_port, int) and com_port < 0))
+        self.simulate = (self.num_simulated_valves > 0 or (isinstance(com_port, int) and com_port < 0))
         
         # Create serial port (if not in simulation mode)
         if not self.simulate:
