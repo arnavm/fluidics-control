@@ -1,1 +1,1 @@
-call C:\Users\Scope5\anaconda3\Scripts\activate.bat C:\Users\Scope5\anaconda3\ && activate Zlab && python kilroy.py scope_settings/kilroy_config_scope5.xml
+call C:\Users\Scope5\AppData\Local\anaconda3\Scripts\activate.bat C:\Users\Scope5\AppData\Local\anaconda3\ && activate scope5 && python kilroy.py scope_settings/kilroy_config_scope5_MVPCNC.xml || cmd /k
